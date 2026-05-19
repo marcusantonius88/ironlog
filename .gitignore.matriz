@@ -1,0 +1,478 @@
+# ╔════════════════════════════════════════════════════════════════════════════╗
+# ║                    MATRIZ DE PADRÕES PARA .gitignore                       ║
+# ║              Decisões sobre cada arquivo/padrão (incluir/excluir)          ║
+# ╚════════════════════════════════════════════════════════════════════════════╝
+
+# DATA: 2026-05-14
+# VERSÃO: 1.0
+# ESCOPO: Project IRONLOG (Go backend + React frontend + Docker infra)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 1: ARQUIVO DE ZONA WINDOWS (1 padrão)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: *.Zone.Identifier
+├─ PROBLEMA ATUAL: readme.md:Zone.Identifier foi commitado individualmente
+├─ DECISÃO: ✅ ADICIONAR (genérico)
+├─ RAZÃO: Arquivos de zona são gerados por Windows/WSL ao copiar arquivos
+├─ EXEMPLO: readme.md:Zone.Identifier, docs/GUIDE.md:Zone.Identifier
+├─ IMPACTO: Nenhum (não afeta versioning de files legítimos)
+└─ PRIORIDADE: 🔴 ALTA (remover file específico já commitado)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 2: SISTEMA OPERACIONAL (6 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: .DS_Store
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo de metadados do macOS Finder
+├─ PRESENTE: Não (mas pode aparecer em máquinas macOS)
+├─ IMPACTO: Nenhum (já ignorado no frontend)
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: Thumbs.db
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Cache de thumbnails Windows Explorer
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: .directory
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Metadados de diretório KDE (Linux)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: desktop.ini
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo de configuração Windows
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: .AppleDouble/
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Resource forks do macOS (compatibilidade HFS+)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: .Spotlight-V100/
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Indexação do Spotlight macOS
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 3: IDEs E EDITORES (8 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: .vscode/
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Configurações locais do VS Code (extensões, settings)
+├─ NOTA: Não é compartilhável entre desenvolvedores
+├─ PRESENTE: Não (assumido)
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: .idea/
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Configurações do IntelliJ IDEA/GoLand
+├─ PRESENTE: Não (assumido)
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: *.iml
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo de projeto IntelliJ
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: .sublime-project
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo de projeto Sublime Text
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: .sublime-workspace
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Workspace do Sublime Text
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: .vim/
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Configurações locais do Vim
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: *.swp
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo de swap do Vim (temporário)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: *.swo
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo de swap anterior do Vim
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 4: VARIÁVEIS DE AMBIENTE E SEGURANÇA (4 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: .env
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Variáveis de ambiente (credenciais, secrets, configs locais)
+├─ PRESENTE: Não (bom!)
+├─ CRÍTICO: SIM - NUNCA versionar credenciais
+├─ NOTA: Frontend já tem isso, raiz não
+├─ IMPACTO: SEGURANÇA
+└─ PRIORIDADE: 🔴 CRÍTICA
+
+PADRÃO: .env.local
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Override local do .env (configs específicas da máquina)
+├─ PRESENTE: Não
+├─ CRÍTICO: SIM
+├─ IMPACTO: SEGURANÇA
+└─ PRIORIDADE: 🔴 CRÍTICA
+
+PADRÃO: .env.*.local
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Override por ambiente (.env.development.local, .env.production.local)
+├─ PRESENTE: Não
+├─ CRÍTICO: SIM
+├─ IMPACTO: SEGURANÇA
+└─ PRIORIDADE: 🔴 CRÍTICA
+
+PADRÃO: !.env.example
+├─ DECISÃO: ✅ MANTER VERSIONED (whitelist)
+├─ RAZÃO: Template necessário para setup (desenvolvedor sabe copiar para .env)
+├─ PRESENTE: Sim ✓ [/.env.example]
+├─ IMPACTO: Nenhum (negação explícita)
+└─ PRIORIDADE: 🔴 CRÍTICA (não ignorar!)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 5: DEPENDÊNCIAS (2 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: /vendor/
+├─ DECISÃO: ✅ ADICIONAR (condicional)
+├─ RAZÃO: Go vendor directory (se usar `go mod vendor`)
+├─ PRESENTE: Não (atualmente)
+├─ NOTA: Projeto atual usa go.mod com replace, não vendor
+├─ IMPACTO: Nenhum (preventivo)
+├─ GO_BEST_PRACTICE: Vendor é opcional, mas frequente em monorepos
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: node_modules/
+├─ DECISÃO: ✅ IGNORAR (já está em frontend)
+├─ RAZÃO: Dependências npm (já no frontend/.gitignore)
+├─ PRESENTE: frontend/web-app/.gitignore ✓
+├─ RAIZ_PRECISA?: Não (frontend .gitignore é específico)
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA (já configurado)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 6: BINÁRIOS E BUILD (7 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: /backend/services/*/parser-service
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Binário Go compilado (gerado com `go build ./cmd`)
+├─ PRESENTE: Não (apenas em Docker)
+├─ NOTA: Cada serviço tem binário correspondente
+├─ IMPACTO: Evita committar binários localmente compilados
+└─ PRIORIDADE: 🔴 ALTA
+
+PADRÃO: /backend/services/*/workout-service
+PADRÃO: /backend/services/*/analytics-service
+PADRÃO: /backend/services/*/projection-service
+PADRÃO: /backend/services/*/recommendation-service
+PADRÃO: /backend/services/*/notification-service
+├─ DECISÃO: ✅ ADICIONAR (todos os serviços)
+├─ RAZÃO: Idem acima - binários Go
+├─ IMPACTO: Evita committar binários
+└─ PRIORIDADE: 🔴 ALTA
+
+PADRÃO: *.out
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Output binário (testes ou builds temporários)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: dist/
+├─ DECISÃO: ✅ IGNORAR (frontend já tem)
+├─ RAZÃO: Build artifacts Vite (já no frontend/.gitignore)
+├─ PRESENTE: frontend/web-app/.gitignore ✓
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA (já configurado)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 7: LOGS E CACHE (5 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: *.log
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivos de log de aplicação
+├─ PRESENTE: Não (ainda)
+├─ NOTA: Frontend já tem isso
+├─ IMPACTO: Nenhum (logs devem ir para stdout/observability)
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: /logs/
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Diretório centralizado de logs
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: npm-debug.log
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Debug log específico do npm
+├─ PRESENTE: Não (bem configurado)
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: .cache/
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Diretório de cache genérico
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟡 MÉDIA
+
+PADRÃO: .vite/
+├─ DECISÃO: ✅ IGNORAR (frontend já tem)
+├─ RAZÃO: Cache Vite (já no frontend/.gitignore)
+├─ PRESENTE: frontend/web-app/.gitignore ✓
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA (já configurado)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 8: ARQUIVOS TEMPORÁRIOS (4 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: *.tmp
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo temporário (editor ou processo)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: *.temp
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Arquivo temporário (variação)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: *.bak
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Backup de editor (nano, vi, etc)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: *~
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Backup de editor (Emacs convention)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 9: PROFILING E TESTES (3 padrões)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: *.pprof
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Go profiling output (CPU/memory profiling)
+├─ PRESENTE: Não
+├─ NOTA: Gerado por pprof, não deve ir para git
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: coverage.txt
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Relatório de cobertura de testes (Go)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+PADRÃO: *.coverprofile
+├─ DECISÃO: ✅ ADICIONAR
+├─ RAZÃO: Relatório de coverage do Go (variação)
+├─ PRESENTE: Não
+├─ IMPACTO: Nenhum
+└─ PRIORIDADE: 🟢 BAIXA
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 10: DOCUMENTAÇÃO (IMPORTANTE: NÃO IGNORAR)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: *.md
+├─ DECISÃO: ❌ NÃO ADICIONAR (wildcard agressivo!)
+├─ RAZÃO: Documentação crítica deve ser versioned
+├─ PROBLEMA_ATUAL: .gitignore raiz usa `*.md` que ignora TUDO
+├─ ARQUIVOS_IGNORADOS_INDEVIDAMENTE:
+│  ├─ README.md (instruções do projeto)
+│  ├─ E2E_TEST_GUIDE.md (guia de testes)
+│  ├─ ARCHITECTURE.md (documentação arquitetura)
+│  ├─ DEPLOY.md (guia de deploy)
+│  ├─ DSL_SPEC.md (especificação DSL)
+│  └─ TESTE_E2E_RESUMO.md (teste manual)
+├─ IMPACTO: CRÍTICO (documentação desaparece do git!)
+└─ PRIORIDADE: 🔴 CRÍTICA (REMOVER essa regra!)
+
+WHITELIST: !readme.md
+├─ DECISÃO: ✅ MANTER (se usar `*.md`)
+├─ NOTA: Mas já que vamos REMOVER `*.md`, essa whitelist não é necessária
+└─ AÇÃO: Remover ambos `*.md` e `!readme.md`
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## CATEGORIA 11: LOCK FILES (IMPORTANTE: NÃO IGNORAR)
+## ═══════════════════════════════════════════════════════════════════════════════
+
+PADRÃO: go.sum
+├─ DECISÃO: ❌ NÃO IGNORAR (versioned)
+├─ RAZÃO: Lock file do Go (como package-lock.json do npm)
+├─ PRESENTE: Sim ✓ [backend/services/parser-service/go.sum], [backend/services/workout-service/go.sum]
+├─ GO_BEST_PRACTICE: Sempre versionar go.sum para reproduzibilidade
+├─ IMPACTO: Nenhum (já versioned corretamente)
+└─ PRIORIDADE: 🟢 BAIXA (não mudar)
+
+PADRÃO: package-lock.json
+├─ DECISÃO: ❌ NÃO IGNORAR (versioned)
+├─ RAZÃO: Lock file npm (se frontend usar npm)
+├─ PRESENTE: Não (frontend não tem node_modules/)
+├─ NPM_BEST_PRACTICE: Versionar lock file
+└─ PRIORIDADE: 🟢 BAIXA (não aplicável agora)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## RESUMO: O QUE MUDA
+## ═══════════════════════════════════════════════════════════════════════════════
+
+ANTES (.gitignore atual):
+```
+readme.md:Zone.Identifier
+
+# Ignore .md files except readme.md
+*.md
+!readme.md
+```
+❌ Problemas:
+  - `*.md` bloqueia TODA documentação
+  - Arquivo Zone.Identifier muito específico
+  - Não há proteção .env
+
+DEPOIS (.gitignore novo):
+```
+# Arquivo de zona Windows
+*.Zone.Identifier
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+.directory
+desktop.ini
+.AppleDouble/
+.Spotlight-V100/
+
+# IDEs e Editors
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+.vim/
+*.swp
+*.swo
+*~
+
+# Variáveis de ambiente (SEGURANÇA)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Dependências (Go)
+/vendor/
+
+# Binários gerados localmente
+/backend/services/*/parser-service
+/backend/services/*/workout-service
+/backend/services/*/analytics-service
+/backend/services/*/projection-service
+/backend/services/*/recommendation-service
+/backend/services/*/notification-service
+*.out
+
+# Logs e cache
+*.log
+/logs/
+npm-debug.log
+.cache/
+
+# Temporários
+*.tmp
+*.temp
+*.bak
+
+# Profiling e testes
+*.pprof
+coverage.txt
+*.coverprofile
+
+# IMPORTANTE: Documentação (.md) é versioned propositalmente!
+# IMPORTANTE: go.sum é versioned (prática Go padrão)!
+# IMPORTANTE: .env.example é versioned (template necessário)!
+```
+
+✅ Benefícios:
+  - Segurança (.env protegido)
+  - Limpeza (binários, logs, cache ignorados)
+  - Documentação preservada
+  - Padrões consistentes
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## VALIDAÇÃO: ARQUIVOS QUE NÃO DEVEM SER IGNORADOS
+## ═══════════════════════════════════════════════════════════════════════════════
+
+ARQUIVOS CRÍTICOS (sempre versioned):
+  ✅ README.md
+  ✅ E2E_TEST_GUIDE.md
+  ✅ ARCHITECTURE.md
+  ✅ TESTE_E2E_RESUMO.md
+  ✅ .env.example
+  ✅ go.sum (backend/services/*/go.sum)
+  ✅ Todos os source files (.go, .ts, .tsx, .yml)
+  ✅ Todos os Dockerfiles
+  ✅ docker-compose.yml
+  ✅ package.json
+  ✅ tsconfig.json
+  ✅ go.mod (backend/shared/ e cada serviço)
+
+## ═══════════════════════════════════════════════════════════════════════════════
+## PRÓXIMOS PASSOS
+## ═══════════════════════════════════════════════════════════════════════════════
+
+1. ✅ Criar esta matriz (você está lendo)
+2. ⏳ Gerar novo .gitignore raiz baseado na matriz
+3. ⏳ Sincronizar frontend .gitignore
+4. ⏳ Validar com `git check-ignore -v <pattern>`
+5. ⏳ Remover arquivo Zone.Identifier do git
+6. ⏳ Commit com mensagem clara
+
+---
+FIM DA MATRIZ

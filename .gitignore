@@ -1,1 +1,87 @@
-readme.md:Zone.Identifier
+# ╔════════════════════════════════════════════════════════════════╗
+# ║                         .gitignore - IRON LOG                    ║
+# ║              Generated: 2026-05-14 | Version: 1.0               ║
+# ╚════════════════════════════════════════════════════════════════╝
+
+## ═══════════════════════════════════════════════════════════════
+## ARQUIVO DE ZONA WINDOWS
+## ═══════════════════════════════════════════════════════════════
+*.Zone.Identifier
+
+## ═══════════════════════════════════════════════════════════════
+## SISTEMA OPERACIONAL
+## ═══════════════════════════════════════════════════════════════
+.DS_Store
+Thumbs.db
+.directory
+desktop.ini
+.AppleDouble/
+.Spotlight-V100/
+
+## ═══════════════════════════════════════════════════════════════
+## IDEs E EDITORES
+## ═══════════════════════════════════════════════════════════════
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+*.sublime-workspace
+.vim/
+*.swp
+*.swo
+*~
+
+## ═══════════════════════════════════════════════════════════════
+## VARIÁVEIS DE AMBIENTE (⚠️  SEGURANÇA - NUNCA VERSIONAR SECRETS)
+## ═══════════════════════════════════════════════════════════════
+.env
+.env.local
+.env.*.local
+!.env.example
+
+## ═══════════════════════════════════════════════════════════════
+## DEPENDÊNCIAS
+## ═══════════════════════════════════════════════════════════════
+/vendor/
+
+## ═══════════════════════════════════════════════════════════════
+## BINÁRIOS GERADOS LOCALMENTE
+## ═══════════════════════════════════════════════════════════════
+/backend/services/*/parser-service
+/backend/services/*/workout-service
+/backend/services/*/analytics-service
+/backend/services/*/projection-service
+/backend/services/*/recommendation-service
+/backend/services/*/notification-service
+*.out
+
+## ═══════════════════════════════════════════════════════════════
+## LOGS E CACHE
+## ═══════════════════════════════════════════════════════════════
+*.log
+/logs/
+npm-debug.log
+.cache/
+
+## ═══════════════════════════════════════════════════════════════
+## ARQUIVOS TEMPORÁRIOS
+## ═══════════════════════════════════════════════════════════════
+*.tmp
+*.temp
+*.bak
+
+## ═══════════════════════════════════════════════════════════════
+## PROFILING E RELATÓRIOS DE TESTE
+## ═══════════════════════════════════════════════════════════════
+*.pprof
+coverage.txt
+*.coverprofile
+
+## ═══════════════════════════════════════════════════════════════
+## ⚠️  IMPORTANTE - ARQUIVOS QUE NÃO SÃO IGNORADOS
+## ═══════════════════════════════════════════════════════════════
+## ✅ Documentação (.md): README.md, E2E_TEST_GUIDE.md, etc
+## ✅ Go lock files: go.sum (prática Go padrão)
+## ✅ Template de env: .env.example
+## ✅ Frontend build artifacts: ignorados em frontend/.gitignore
+## ═══════════════════════════════════════════════════════════════
