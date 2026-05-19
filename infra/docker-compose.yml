@@ -1,0 +1,261 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Event Store
+  postgres:
+    image: postgres:16-alpine
+    container_name: ironlog-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ironlog
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ironlog
+
+  # Apache Kafka
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: ironlog-kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    ports:
+      - "9092:9092"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - ironlog
+
+  # Zookeeper (for Kafka)
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: ironlog-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+    networks:
+      - ironlog
+
+  # Debezium (Change Data Capture)
+  debezium:
+    image: debezium/connect:2.4.0.Final
+    container_name: ironlog-debezium
+    environment:
+      BOOTSTRAP_SERVERS: kafka:29092
+      GROUP_ID: debezium-group
+      CONFIG_STORAGE_TOPIC: debezium.configs
+      OFFSET_STORAGE_TOPIC: debezium.offsets
+      STATUS_STORAGE_TOPIC: debezium.status
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+      - postgres
+    networks:
+      - ironlog
+
+  # Redis (Idempotency & Caching)
+  redis:
+    image: redis:7-alpine
+    container_name: ironlog-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ironlog
+
+  # Prometheus (Metrics)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: ironlog-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - ironlog
+
+  # Grafana (Visualization)
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: ironlog-grafana
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: password
+      GF_INSTALL_PLUGINS: grafana-clock-panel
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+    networks:
+      - ironlog
+
+  # Jaeger (Distributed Tracing)
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: ironlog-jaeger
+    environment:
+      COLLECTOR_ZIPKIN_HOST_PORT: :9411
+      COLLECTOR_OTLP_ENABLED: 'true'
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "14250:14250"  # OTLP gRPC
+      - "14268:14268"  # OTLP HTTP
+    networks:
+      - ironlog
+
+  # Backend Services
+  parser-service:
+    build:
+      context: ../backend
+      dockerfile: ./services/parser-service/Dockerfile
+    container_name: ironlog-parser
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      PORT: 8081
+    ports:
+      - "8081:8081"
+    depends_on:
+      - kafka
+    networks:
+      - ironlog
+
+  workout-service:
+    build:
+      context: ../backend
+      dockerfile: ./services/workout-service/Dockerfile
+    container_name: ironlog-workout
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: ironlog
+      KAFKA_BROKERS: kafka:29092
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - ironlog
+
+  analytics-service:
+    build:
+      context: ../backend
+      dockerfile: ./services/analytics-service/Dockerfile
+    container_name: ironlog-analytics
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      PORT: 8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - kafka
+    networks:
+      - ironlog
+
+  projection-service:
+    build:
+      context: ../backend
+      dockerfile: ./services/projection-service/Dockerfile
+    container_name: ironlog-projection
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: password
+      DB_NAME: ironlog
+      KAFKA_BROKERS: kafka:29092
+      PORT: 8083
+    ports:
+      - "8083:8083"
+    depends_on:
+      - postgres
+      - kafka
+    networks:
+      - ironlog
+
+  recommendation-service:
+    build:
+      context: ../backend
+      dockerfile: ./services/recommendation-service/Dockerfile
+    container_name: ironlog-recommendation
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      PORT: 8084
+    ports:
+      - "8084:8084"
+    depends_on:
+      - kafka
+    networks:
+      - ironlog
+
+  notification-service:
+    build:
+      context: ../backend
+      dockerfile: ./services/notification-service/Dockerfile
+    container_name: ironlog-notification
+    environment:
+      KAFKA_BROKERS: kafka:29092
+      PORT: 8085
+    ports:
+      - "8085:8085"
+    depends_on:
+      - kafka
+    networks:
+      - ironlog
+
+  # Frontend
+  frontend:
+    build:
+      context: ../frontend/web-app
+      dockerfile: Dockerfile
+    container_name: ironlog-web
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:8080
+    depends_on:
+      - parser-service
+      - workout-service
+    networks:
+      - ironlog
+
+volumes:
+  postgres_data:
+  kafka_data:
+  zookeeper_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  ironlog:
+    driver: bridge

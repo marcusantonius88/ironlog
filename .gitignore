@@ -85,3 +85,10 @@ coverage.txt
 ## ✅ Template de env: .env.example
 ## ✅ Frontend build artifacts: ignorados em frontend/.gitignore
 ## ═══════════════════════════════════════════════════════════════
+ARCHITECTURE.md
+E2E_TEST_GUIDE.md
+QUICKSTART.md
+TESTE_E2E_RESUMO.md
+TESTE_MANUAL.sh
+docs/DEPLOYMENT.md
+docs/DSL_SPEC.md

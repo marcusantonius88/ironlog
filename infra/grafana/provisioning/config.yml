@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Config
+metadata:
+  name: provisioning
+
+provisioners:
+  - name: 'datasources'
+    org_id: 1
+    folder: ''
+    type: file
+    options:
+      path: /etc/grafana/provisioning/datasources
+
+  - name: 'dashboards'
+    org_id: 1
+    folder: ''
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards
