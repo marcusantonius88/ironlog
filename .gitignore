@@ -85,11 +85,12 @@ coverage.txt
 ## ✅ Template de env: .env.example
 ## ✅ Frontend build artifacts: ignorados em frontend/.gitignore
 ## ═══════════════════════════════════════════════════════════════
-ARCHITECTURE.md
-E2E_TEST_GUIDE.md
-QUICKSTART.md
-TESTE_E2E_RESUMO.md
 TESTE_MANUAL.sh
+docs/ARCHITECTURE.md
 docs/DEPLOYMENT.md
 docs/DSL_SPEC.md
+docs/E2E_TEST_GUIDE.md
+docs/GITIGNORE_REFACTOR_REPORT.md
+docs/QUICKSTART.md
+docs/TESTE_E2E_RESUMO.md
 .gitignore.matriz
