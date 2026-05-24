@@ -78,19 +78,17 @@ coverage.txt
 *.coverprofile
 
 ## ═══════════════════════════════════════════════════════════════
+## DOCUMENTAÇÃO EM MARKDOWN
+## ═══════════════════════════════════════════════════════════════
+docs/*.md
+
+## ═══════════════════════════════════════════════════════════════
 ## ⚠️  IMPORTANTE - ARQUIVOS QUE NÃO SÃO IGNORADOS
 ## ═══════════════════════════════════════════════════════════════
-## ✅ Documentação (.md): README.md, E2E_TEST_GUIDE.md, etc
+## ✅ Documentação (imagens): docs/banner-ironlog.png, etc
 ## ✅ Go lock files: go.sum (prática Go padrão)
 ## ✅ Template de env: .env.example
 ## ✅ Frontend build artifacts: ignorados em frontend/.gitignore
 ## ═══════════════════════════════════════════════════════════════
 TESTE_MANUAL.sh
-docs/ARCHITECTURE.md
-docs/DEPLOYMENT.md
-docs/DSL_SPEC.md
-docs/E2E_TEST_GUIDE.md
-docs/GITIGNORE_REFACTOR_REPORT.md
-docs/QUICKSTART.md
-docs/TESTE_E2E_RESUMO.md
 .gitignore.matriz
