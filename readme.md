@@ -1,6 +1,6 @@
 ![IRONLOG Banner](docs/banner-ironlog.png)
 
-# 🏋️ IRONLOG - Event-Driven Strength Training Analytics Platform
+# IRONLOG - Event-Driven Strength Training Analytics Platform
 
 ![Go](https://img.shields.io/badge/Go-1.22-blue)
 ![Kafka](https://img.shields.io/badge/Kafka-Event%20Streaming-black)
@@ -28,7 +28,7 @@ It was built to demonstrate practical applications of:
 
 ---
 
-# 🎯 Motivation
+## 🎯 Motivation
 
 Most workout apps introduce too much friction:
 
@@ -63,9 +63,9 @@ Instead of manually filling forms, users can write workouts naturally while the 
 
 ---
 
-# 🧠 Core Concepts
+## 🧠 Core Concepts
 
-## 📨 Event-Driven Architecture
+### 📨 Event-Driven Architecture
 
 IRONLOG is fully event-driven.
 
@@ -93,7 +93,7 @@ LoadIncreaseSuggested
 
 ---
 
-## 🧩 Event Sourcing
+### 🧩 Event Sourcing
 
 The system stores workout history as immutable events.
 
@@ -117,11 +117,11 @@ This allows:
 
 ---
 
-## ⚖️ CQRS
+### ⚖️ CQRS
 
 IRONLOG separates:
 
-### Write side
+#### Write side
 
 Responsible for:
 
@@ -129,7 +129,7 @@ Responsible for:
 - validation
 - event generation
 
-### Read side
+#### Read side
 
 Responsible for:
 
@@ -140,7 +140,7 @@ Responsible for:
 
 ---
 
-## 🧠 Workout DSL
+### 🧠 Workout DSL
 
 One of the main goals of the project is implementing a custom DSL (Domain Specific Language) for workout tracking.
 
@@ -164,7 +164,7 @@ The parser converts this into a structured AST and domain commands.
 
 ---
 
-# 🏗️ System Architecture
+## 🏗️ System Architecture
 
 ```mermaid
 flowchart TD
@@ -195,7 +195,7 @@ PROM --> GRAFANA[Grafana Dashboards]
 
 ---
 
-# 🧱 Architectural Principles
+## 🧱 Architectural Principles
 
 - Event-Driven Architecture
 - Event Sourcing
@@ -210,9 +210,9 @@ PROM --> GRAFANA[Grafana Dashboards]
 
 ---
 
-# ⚙️ Tech Stack
+## ⚙️ Tech Stack
 
-## Backend
+### Backend
 
 - Golang
 - PostgreSQL
@@ -220,14 +220,14 @@ PROM --> GRAFANA[Grafana Dashboards]
 - Apache Kafka
 - Debezium
 
-## Frontend
+### Frontend
 
 - React
 - Vite
 - TailwindCSS
 - Recharts
 
-## Observability
+### Observability
 
 - Prometheus
 - Grafana
@@ -235,7 +235,94 @@ PROM --> GRAFANA[Grafana Dashboards]
 
 ---
 
-# 📂 Monorepo Structure
+## 🤖 AI-Assisted Development
+
+This project was built using modern AI-Assisted Software Development practices.
+
+| | |
+|---|---|
+| IDE/Agent | VSCode with Github Copilot |
+| Main Model | Claude Haiku 4.5 |
+| Strategic Support | ChatGPT (GPT-5.5) (architectural decisions) |
+| Methodology | Spec-Driven Development (SDD) |
+
+Development was conducted from formal specifications (Specs), following a **Spec-Driven Development** approach, where each functionality is planned, documented, and validated before implementation.
+
+### 📋 Project Specifications
+
+IRONLOG's functionality was planned and organized through formal specification documents located in `/docs`, containing:
+
+- **ARCHITECTURE.md** - System design patterns (Event Sourcing, CQRS, DDD, Hexagonal Architecture)
+- **DSL_SPEC.md** - Complete DSL grammar (EBNF notation, lexer/parser pipeline, examples)
+- **SERVICE_COMMUNICATION.md** - Event contracts and data flows between 6 microservices
+- **PROJECT_STRUCTURE.md** - Directory organization, naming conventions, development patterns
+- **DEVELOPMENT_GUIDE.md** - Step-by-step guide with practical example (adding a new metric)
+
+Each specification clearly defines the **"what"** before implementation begins, ensuring consistent architecture and quality.
+
+### 📚 Documentation
+
+The `/docs` folder contains comprehensive, ordered documentation:
+
+1. **[QUICKSTART.md](docs/QUICKSTART.md)** (5 min) - Setup and first run
+   - Docker Compose and local development options
+   - Testing the DSL parser
+   - Accessing observability tools
+
+2. **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** (30 min) - System design
+   - Event-Driven Architecture fundamentals
+   - Event Sourcing and CQRS patterns
+   - Service responsibilities and ownership
+   - Technology selection rationale
+
+3. **[PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md)** (20 min) - Codebase navigation
+   - Directory layout and organization
+   - Hexagonal architecture in each service
+   - Shared code and conventions
+   - Naming patterns for files and identifiers
+
+4. **[SERVICE_COMMUNICATION.md](docs/SERVICE_COMMUNICATION.md)** (30 min) - Event flows
+   - EventEnvelope contract specification
+   - 6 services: publishers, consumers, event types
+   - Communication patterns (request-response, async, pipelines)
+   - Kafka topics and idempotency strategy
+
+5. **[DSL_SPEC.md](docs/DSL_SPEC.md)** (20 min) - Workout language
+   - Complete EBNF grammar
+   - Lexical tokens and parsing process
+   - Practical examples with AST output
+   - Variations and edge cases
+
+6. **[DEVELOPMENT_GUIDE.md](docs/DEVELOPMENT_GUIDE.md)** (2h) - Building features
+   - 10-step practical example: adding a strength progression metric
+   - Domain → Application → Ports → Adapters pattern
+   - Writing tests at each layer
+   - Debugging tips and best practices
+
+7. **[E2E_TEST_GUIDE.md](docs/E2E_TEST_GUIDE.md)** (30 min) - Manual testing
+   - Step-by-step verification of all 13 components
+   - Health checks for each service
+   - DSL parser testing
+   - Database and Kafka inspection
+
+8. **[DEPLOYMENT_DOCKER.md](docs/DEPLOYMENT_DOCKER.md)** (20 min) - Docker operations
+   - Docker Compose configuration and ports
+   - Service startup, logs, and health checks
+   - Database migrations and backup
+   - Performance tuning and resource limits
+
+9. **[TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md)** (on-demand) - Common issues
+   - Container startup failures
+   - Database connection problems
+   - Kafka message flow issues
+   - Service communication and API errors
+   - Frontend connectivity and build issues
+
+**Total learning time: ~5 hours** to understand the full system architecture and start contributing.
+
+---
+
+## 📂 Monorepo Structure
 
 ```txt
 /ironlog
@@ -270,7 +357,7 @@ PROM --> GRAFANA[Grafana Dashboards]
 
 ---
 
-# 🧩 Workout DSL Grammar
+## 🧩 Workout DSL Grammar
 
 The workout DSL follows a predictable semantic structure.
 
@@ -282,7 +369,7 @@ SetType: Setsx RepRange Weight (ExecutedReps)
 
 ---
 
-# 🧠 Parser Pipeline
+## 🧠 Parser Pipeline
 
 ```mermaid
 flowchart LR
@@ -300,7 +387,7 @@ EVENTS --> KAFKA[(Kafka)]
 
 ---
 
-# ⚖️ CQRS Flow
+## ⚖️ CQRS Flow
 
 ```mermaid
 flowchart LR
@@ -320,7 +407,7 @@ READMODEL --> DASHBOARD[Analytics Dashboard]
 
 ---
 
-# 🧩 Event Sourcing Replay
+## 🧩 Event Sourcing Replay
 
 ```mermaid
 sequenceDiagram
@@ -343,7 +430,7 @@ Analytics->>Projection: Generate analytics
 
 ---
 
-# 📈 Automatic Progression Detection
+## 📈 Automatic Progression Detection
 
 ```mermaid
 flowchart TD
@@ -361,7 +448,7 @@ CHECK -->|No| KEEP[Maintain Current Load]
 
 ---
 
-# 📦 Outbox Pattern
+## 📦 Outbox Pattern
 
 IRONLOG uses the Outbox Pattern for reliable event publishing.
 
@@ -373,7 +460,7 @@ Rules:
 
 ---
 
-# 📊 Observability
+## 📊 Observability
 
 All services expose:
 
@@ -391,7 +478,7 @@ Metrics include:
 
 ---
 
-# 🚀 Future Ideas
+## 🚀 Future Ideas
 
 - mobile app
 - wearable integrations
@@ -402,6 +489,6 @@ Metrics include:
 
 ---
 
-# 📜 License
+## 📜 License
 
 MIT License
