@@ -84,6 +84,6 @@ coverage.txt
 ## ✅ Go lock files: go.sum (prática Go padrão)
 ## ✅ Template de env: .env.example
 ## ✅ Frontend build artifacts: ignorados em frontend/.gitignore
+## ✅ Setup and testing scripts: setup.sh, E2E_TEST.sh
 ## ═══════════════════════════════════════════════════════════════
-TESTE_MANUAL.sh
 .gitignore.matriz

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # IRONLOG Project Setup Script
-# Initializes the complete project environment
+# Initializes the complete project development environment with all prerequisites,
+# dependencies, and Docker infrastructure.
 
 set -e
 
@@ -44,7 +45,7 @@ else
 fi
 
 # Initialize frontend
-echo "📦 Setting up frontend..."
+echo "📦 Setting up frontend dependencies..."
 cd frontend/web-app
 npm install
 cd ../..

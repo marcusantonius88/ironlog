@@ -27,6 +27,28 @@ It was built to demonstrate practical applications of:
 
 ---
 
+## 🚀 Quick Start
+
+The project includes automated setup and testing scripts:
+
+- **[setup.sh](setup.sh)** - Initializes the complete development environment
+  - Checks prerequisites (Docker, Docker Compose, Go, Node.js)
+  - Sets up frontend dependencies
+  - Starts Docker infrastructure
+  - Displays service URLs
+  - Run: `bash setup.sh`
+
+- **[E2E_TEST.sh](E2E_TEST.sh)** - Validates all services and system components
+  - Verifies container status
+  - Performs health checks on all services
+  - Tests the DSL parser
+  - Checks database tables
+  - Run after `setup.sh`: `bash E2E_TEST.sh`
+
+For detailed setup instructions, see [QUICKSTART.md](docs/QUICKSTART.md).
+
+---
+
 ## 🎯 Motivation
 
 Most workout apps introduce too much friction:
