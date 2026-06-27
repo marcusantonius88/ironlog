@@ -2,13 +2,12 @@
 
 # IRONLOG - Event-Driven Strength Training Analytics Platform
 
-![Go](https://img.shields.io/badge/Go-1.22-blue)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
-![Kafka](https://img.shields.io/badge/Kafka-Event%20Streaming-black)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791)
-![Docker](https://img.shields.io/badge/Docker-Compose-2496ED)
-![Architecture](https://img.shields.io/badge/Architecture-EDA%20%2B%20Hexagonal-green)
-![License](https://img.shields.io/badge/License-MIT-green)
+![Go](https://img.shields.io/badge/Go-1.22-blue?labelColor=666666)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?labelColor=666666)
+![Kafka](https://img.shields.io/badge/Kafka-Event%20Streaming-blue?labelColor=666666)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?labelColor=666666)
+![Docker](https://img.shields.io/badge/Docker-Compose-blue?labelColor=666666)
+![Architecture](https://img.shields.io/badge/Architecture-EDA%20%2B%20Hexagonal-blue?labelColor=666666)
 
 IRONLOG is an event-driven platform designed to track strength training sessions through a custom workout DSL, event sourcing and temporal analytics.
 
